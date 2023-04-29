@@ -22,6 +22,7 @@ import static io.cynthia.client.utils.JsonUtils.toObject;
 public class CynthiaClient {
     private static final String DEFAULT_BASE_URL = "https://api.cynthia.io/api/v1.0/";
     private static final String CYNTHIA_API_KEY = "CYNTHIA-API-KEY";
+    private static final String SEARCH = "search";
     String apiKey;
     String baseUrl;
 
@@ -38,7 +39,7 @@ public class CynthiaClient {
     public CynthiaNLUSearchResponse nluSearch(@NonNull final String modelName,
                                               @NonNull final String modelVersion,
                                               @NonNull final CynthiaNLUSearchRequest nluSearchRequest) {
-        final String apiUrl = String.format("%s/%s/%s", baseUrl(), modelName, modelVersion);
+        final String apiUrl = String.format("%s/%s/%s/%s", baseUrl(), SEARCH, modelName, modelVersion);
         final String response = Request.post(apiUrl)
                 .addHeader(CYNTHIA_API_KEY, apiKey())
                 .bodyString(toJson(nluSearchRequest), ContentType.APPLICATION_JSON)
