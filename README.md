@@ -14,40 +14,47 @@ To get started with the Cynthia Java Client, add the following Maven dependency 
 </dependency>
 ```
 
-## Example: Connecting to Cynthia using HTTP Fluent HC Client API
+## Example: Searching with Cynthia using the fluent API.
 
 Here's an example of how to connect to Cynthia using the HTTP fluent HC client API in a Java application:
 
 ```java
-import org.apache.http.client.fluent.Request;
-import org.apache.http.entity.ContentType;
+package io.cynthia.client.example;
 
-public class CynthiaClientExample {
+import io.cynthia.client.CynthiaClient;
+import io.cynthia.client.search.CynthiaNLUSearchOptions;
+import io.cynthia.client.search.CynthiaNLUSearchQuery;
+import io.cynthia.client.search.CynthiaNLUSearchRequest;
+import io.cynthia.client.search.CynthiaNLUSearchResponse;
+import io.cynthia.client.utils.JsonUtils;
+import lombok.experimental.UtilityClass;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
+
+@Slf4j
+@UtilityClass
+public class Main {
 
     public static void main(String[] args) {
-        // Your input text for inference
-        final String inputText = "This is an example input text for Cynthia.";
-
-        // Your Cynthia API Key
-        String apiKey = "your-cynthia-api-key";
-
-        try {
-            String response = Request.Post(CYNTHIA_API_URL)
-                    .addHeader("Authorization", "Bearer " + apiKey)
-                    .bodyString("{\"input_text\": \"" + inputText + "\"}", ContentType.APPLICATION_JSON)
-                    .execute()
-                    .returnContent()
-                    .asString();
-
-            System.out.println("Cynthia response: " + response);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        final String apiKey = "978ce5f9-5afa-41f4-8653-b1fb74fc7918";
+        final boolean autoLimit = true;
+        final int top = 10;
+        final CynthiaClient client = CynthiaClient.of(apiKey);
+        final CynthiaNLUSearchResponse response = client.nluSearch("Lacoste", "crafty-crocodile-1.1",
+                CynthiaNLUSearchRequest.of(
+                        List.of(CynthiaNLUSearchQuery.of("warm men's jacket")),
+                        CynthiaNLUSearchOptions.of(autoLimit, top)));
+        log.info(JsonUtils.toJson(response));
     }
 }
 ```
 
-Replace `your-cynthia-api-key` with your actual Cynthia API key, and you're ready to make search requests using the Cynthia Java Client in your Java applications.
+Replace `apiKey` with your actual Cynthia API key, and you're ready to make search requests using the Cynthia Java Client in your Java applications.
+
+The parameter `autoLimit = true` means that Cynthia may truncate the results to increase relevancy and precision.
+
+The parameter `top = 10` controls the maximum size of the retrieval, such as the top-10 results.
 
 ## License
 
