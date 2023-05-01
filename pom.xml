@@ -72,7 +72,7 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>Cynthia-${project.version}</finalName>
+        <finalName>Cynthia-Java-Client-${project.version}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

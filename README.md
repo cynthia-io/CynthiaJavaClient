@@ -24,8 +24,6 @@ import org.apache.http.entity.ContentType;
 
 public class CynthiaClientExample {
 
-    private static final String CYNTHIA_API_URL = "https://api.cynthia.io/api/v1.0/search";
-
     public static void main(String[] args) {
         // Your input text for inference
         final String inputText = "This is an example input text for Cynthia.";
