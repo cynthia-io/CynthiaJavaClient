@@ -46,6 +46,7 @@ public class CynthiaClient {
                 .execute()
                 .returnContent()
                 .asString();
-        return toObject(response, new TypeReference<>() {});
+        return toObject(response, new TypeReference<>() {
+        });
     }
 }
