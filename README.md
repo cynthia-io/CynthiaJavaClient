@@ -186,6 +186,111 @@ The parameter `autoLimit = true` means that Cynthia may truncate the results to 
 
 The parameter `top = 10` controls the maximum size of the retrieval, such as the top-10 results.
 
+This query will return the following 10 products from Lacoste.
+
+```json
+{
+    "data": [
+        [
+            {
+                "id": "bf65f20c4a48dcb01f770fbb73d3dd05",
+                "score": 0.16635426878929138,
+                "properties": {
+                    "title": "Men's Quilted Color-Block Water-Repellent Jacket",
+                    "description": "Stay warm in this thermal jacket. A color-block design that combines sustainable eiderdown with crocodile style.",
+                    "image": "5466f9228d2a996b258fc78071c1d5a3.png"
+                }
+            },
+            {
+                "id": "e098c951e59f139859e0809b1f9aea6a",
+                "score": 0.12331419438123703,
+                "properties": {
+                    "title": "Men's Fold Away Hood Vest",
+                    "description": "Keep warm all season long in this responsible down vest jacket. A warm and water-repellent design with its own fold away hood.",
+                    "image": "23651cfdd6c142e138c4a6eac4654195.png"
+                }
+            },
+            {
+                "id": "aac87d755fdd9b1ffa696cb0b6a10241",
+                "score": 0.08255892992019653,
+                "properties": {
+                    "title": "Men's Oversized Branded Water-Repellent Jacket",
+                    "description": "Comfortable, responsible, functional. Rain or shine, stay warm in this bold Lacoste jacket.",
+                    "image": "e430e6c7a9f6275d60256a35038c5048.png"
+                }
+            },
+            {
+                "id": "3f26d09d1b533014f1c2f334d663c991",
+                "score": 0.07648279517889023,
+                "properties": {
+                    "title": "Men's Quilted Hooded Jacket",
+                    "description": "Sustainable. Water-repellent. Durable. With additional details for extra functionality. The Lacoste accessory for daily life.",
+                    "image": "63f6fafe15b46eced44516d25f09fae7.png"
+                }
+            },
+            {
+                "id": "289ad3577f1593b1bae087bfd5bc5d4d",
+                "score": 0.07484214752912521,
+                "properties": {
+                    "title": "Men's Sherpa Fleece Vest",
+                    "description": "Warm. Bold. Comfortable. A functional vest with signature Lacoste high-tech details.",
+                    "image": "97492e333c9cd6eccaf4c194ea1c9110.png"
+                }
+            },
+            {
+                "id": "450efb871faa13de1bd30844faa32db8",
+                "score": 0.057507604360580444,
+                "properties": {
+                    "title": "Men's Water-Resistant Cotton Blend Short Hooded Parka",
+                    "description": "Minimalism meets elegance in this short parka crafted in a water-resistant cotton blend. With convenient pockets, an adjustable hood and a concealed zip fastening, it has fitted sleeve ends featuring an inner adjustment system. Don't miss this functional, contemporary piece, which takes you effortlessly through the city, no matter what the weather.",
+                    "image": "3b65a53dbb7d25c44dc4a2ede5a9ba46.png"
+                }
+            },
+            {
+                "id": "f1d74c8a86e3b384240583f05c54d10a",
+                "score": 0.049184732139110565,
+                "properties": {
+                    "title": "Men's Checked Responsible Wool Chesterfield Jacket",
+                    "description": "Elegant, essential and iconic sum up this warm, long Chesterfield coat. A comfortable must-have made from a recycled wool blend and featuring a checkered design. Whether you wear it with a velvet suit or go for a more offbeat look with a hoody, this timeless piece adapts to your every whim.",
+                    "image": "6502b80fa49e127766cc1942e2f25679.png"
+                }
+            },
+            {
+                "id": "434bcc7c9eeb5b61029eb23ba6bf0bc5",
+                "score": 0.03910645470023155,
+                "properties": {
+                    "title": "Men's Insulated Padded Bomber Jacket",
+                    "description": "Flawless comfort and Lacoste elegance come with this water-resistant bomber jacket. Promises a perfect silhouette at all times.",
+                    "image": "074b72cdd2f738afe92648f7523ed85c.png"
+                }
+            },
+            {
+                "id": "83af71f3ba67f6bf0f672ee30ebf0c12",
+                "score": 0.03582192212343216,
+                "properties": {
+                    "title": "Men's Quilted Water-Repellent Jacket",
+                    "description": "Combine warmth and comfort in this quilted jacket. Iconic, water-repellent, responsible. Clearly essential.",
+                    "image": "84221c8c481f036f58ad4a5b0a73a862.png"
+                }
+            },
+            {
+                "id": "c0cd625dbff100d4d9f42c62af5906bd",
+                "score": 0.023045210167765617,
+                "properties": {
+                    "title": "Men's Water-Repellent Parka",
+                    "description": "Nautical style accompanies this functional jacket. Inspired by the sailing world, its ergonomic design makes all the difference.",
+                    "image": "100071d3b9083bafba250b95555149e4.png"
+                }
+            }
+        ]
+    ]
+}
+```
+
+For NLU Search, the Cynthia `score` property associated with each result represents a fraction of contribution
+of the model's attention on this result as it pertaining to relevancy. Imagine the results are a pie chart 
+where each product gets a slice of the pie. The slice of the slice represents relevency, and over all products, sum to `1.0`.
+
 ## License
 
 This project is licensed under the [Apache 2.0 License](https://www.apache.org/licenses/LICENSE-2.0.txt).
