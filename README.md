@@ -309,3 +309,12 @@ This project is licensed under the [Apache 2.0 License](https://www.apache.org/l
 ## Contributing
 
 We welcome contributions from the community. Please read our Contributing Guidelines to learn more about how you can get involved.
+
+
+## About Us
+
+Cynthia.io Inc. is a C-Corp in the State of Delaware. The name Cynthia is an anthropomorphized contraction 
+of our trademark, the `Synthetic Intelligent Agent™`. Please [visit our website](https://cynthia.io) to 
+learn more about us and what we do.
+
+
