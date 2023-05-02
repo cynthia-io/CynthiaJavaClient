@@ -194,7 +194,7 @@ The parameter `autoLimit = true` means that Cynthia may truncate the results to 
 
 The parameter `top = 10` controls the maximum size of the retrieval, such as the top-10 results.
 
-This query will return the following 10 products from Lacoste.
+This query will return the following 10 products from [Lacoste](https://www.lacoste.com/us/#query=warm%20men's%20jacket).
 
 ```json
 {
