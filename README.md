@@ -142,7 +142,7 @@ Here's an example of a Maven `pom.xml` file that imports the Cynthia Java Client
 </project>
 ```
 
-Cynthia favors Lombok annotations, and we use a standard `lombok.config` file:
+Cynthia uses [Lombok](https://projectlombok.org/) annotations, and we use a standard `lombok.config` file:
 
 ```properties
 lombok.addLombokGeneratedAnnotation = true
