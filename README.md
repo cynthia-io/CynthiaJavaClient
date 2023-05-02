@@ -29,9 +29,9 @@ lombok.addLombokGeneratedAnnotation = true
 lombok.anyConstructor.addConstructorProperties = true
 ```
 
-## Example: Searching with Cynthia using the fluent API.
+## Example: Natural Language Search
 
-Here's an example of how to connect to Cynthia using the HTTP fluent HC client API in a Java application. In this example, 
+Here's an example of how to connect to Cynthia in a Java application. In this example, 
 we search in the Lacoste product catalog for a `warm men's jacket` using a model called the `crafty-crocodile-1.1` .
 
 ```java
@@ -57,8 +57,8 @@ public class Main {
         final boolean autoLimit = true;
         final int top = 10;
         final CynthiaClient client = CynthiaClient.of(apiKey);
-        final CynthiaNLUSearchResponse response = client.nluSearch(
-                "Lacoste", 
+        final CynthiaNLUSearchResponse response = client.search(
+                "Lacoste",
                 "crafty-crocodile-1.1",
                 CynthiaNLUSearchRequest.of(
                         List.of(CynthiaNLUSearchQuery.of("warm men's jacket")),
@@ -78,10 +78,11 @@ This query will return the following 10 products from [Lacoste](https://www.laco
 
 ```json
 {
+    "correlationId": "0ca39d69-72f0-420e-9fc8-a6f335d8ee68",
     "data": [
         [
             {
-                "id": "bf65f20c4a48dcb01f770fbb73d3dd05",
+                "resultId": "d14f2b7a-18b1-4573-970f-541c23a91d9f",
                 "score": 0.16635426878929138,
                 "properties": {
                     "title": "Men's Quilted Color-Block Water-Repellent Jacket",
@@ -90,7 +91,7 @@ This query will return the following 10 products from [Lacoste](https://www.laco
                 }
             },
             {
-                "id": "e098c951e59f139859e0809b1f9aea6a",
+                "resultId": "8793502a-af12-4008-a28b-1ea713891813",
                 "score": 0.12331419438123703,
                 "properties": {
                     "title": "Men's Fold Away Hood Vest",
@@ -99,7 +100,7 @@ This query will return the following 10 products from [Lacoste](https://www.laco
                 }
             },
             {
-                "id": "aac87d755fdd9b1ffa696cb0b6a10241",
+                "resultId": "f4285e26-5642-4d92-b975-3f2d917e8f3d",
                 "score": 0.08255892992019653,
                 "properties": {
                     "title": "Men's Oversized Branded Water-Repellent Jacket",
@@ -108,7 +109,7 @@ This query will return the following 10 products from [Lacoste](https://www.laco
                 }
             },
             {
-                "id": "3f26d09d1b533014f1c2f334d663c991",
+                "resultId": "d32e046d-dbb2-4330-bd4a-91541d3176aa",
                 "score": 0.07648279517889023,
                 "properties": {
                     "title": "Men's Quilted Hooded Jacket",
@@ -117,7 +118,7 @@ This query will return the following 10 products from [Lacoste](https://www.laco
                 }
             },
             {
-                "id": "289ad3577f1593b1bae087bfd5bc5d4d",
+                "resultId": "9f6b131d-d27b-4993-8c10-bc1c8f4b3f95",
                 "score": 0.07484214752912521,
                 "properties": {
                     "title": "Men's Sherpa Fleece Vest",
@@ -126,7 +127,7 @@ This query will return the following 10 products from [Lacoste](https://www.laco
                 }
             },
             {
-                "id": "450efb871faa13de1bd30844faa32db8",
+                "resultId": "8c15c2fe-327b-4c6e-923a-1bec53545844",
                 "score": 0.057507604360580444,
                 "properties": {
                     "title": "Men's Water-Resistant Cotton Blend Short Hooded Parka",
@@ -135,7 +136,7 @@ This query will return the following 10 products from [Lacoste](https://www.laco
                 }
             },
             {
-                "id": "f1d74c8a86e3b384240583f05c54d10a",
+                "resultId": "527ac95d-2bed-4531-9f44-b12325dd5100",
                 "score": 0.049184732139110565,
                 "properties": {
                     "title": "Men's Checked Responsible Wool Chesterfield Jacket",
@@ -144,7 +145,7 @@ This query will return the following 10 products from [Lacoste](https://www.laco
                 }
             },
             {
-                "id": "434bcc7c9eeb5b61029eb23ba6bf0bc5",
+                "resultId": "b7916c05-2b59-4932-8456-d07e8cdc9534",
                 "score": 0.03910645470023155,
                 "properties": {
                     "title": "Men's Insulated Padded Bomber Jacket",
@@ -153,7 +154,7 @@ This query will return the following 10 products from [Lacoste](https://www.laco
                 }
             },
             {
-                "id": "83af71f3ba67f6bf0f672ee30ebf0c12",
+                "resultId": "7d19d29b-9c70-48a8-9edb-c7f2cdc934af",
                 "score": 0.03582192212343216,
                 "properties": {
                     "title": "Men's Quilted Water-Repellent Jacket",
@@ -162,7 +163,7 @@ This query will return the following 10 products from [Lacoste](https://www.laco
                 }
             },
             {
-                "id": "c0cd625dbff100d4d9f42c62af5906bd",
+                "resultId": "45a5d071-5465-4fb9-9c64-049bff6dcebe",
                 "score": 0.023045210167765617,
                 "properties": {
                     "title": "Men's Water-Repellent Parka",
@@ -179,6 +180,29 @@ For NLU Search, the Cynthia `score` property associated with each search result 
 of the model's attention on this result as it pertaining to relevancy. Imagine the results are a pie chart 
 where each product gets a slice of the pie. The size of the slice represents relevancy, and over all of the products, 
 the attention sums to `1.0`. 
+
+## Example: Providing Search Feedback
+
+Cynthia accepts feedback based on user behavior, such as clicks and conversions. In this way, Cynthia is able
+to self-improve through usage and over time. Submitting feedback is easy and uses identifiers to tell Cynthia 
+what was engaged and how valuable that engagement was to the customer.
+
+For example, let's imaging in the above search, the user clicks on the first result, for the `Men's Quilted Color-Block Water-Repellent Jacket`
+and let's further imagine that this click is worth `$1.75` to Lacoste. Then the corresponding feedback would be sent to 
+Cynthia with the following request:
+
+```java
+final String correlationId = "0ca39d69-72f0-420e-9fc8-a6f335d8ee68";
+final String resultId = "d14f2b7a-18b1-4573-970f-541c23a91d9f";
+final String type = "Click";
+final float value = 1.75f;
+final CynthiaSearchFeedbackRequestItem requestItem = CynthiaSearchFeedbackRequestItem.of(correlationId, resultId, type, value);
+final CynthiaSearchFeedbackRequest request = CynthiaSearchFeedbackRequest.of(List.of(requestItem));
+final boolean submitted = client.feedback(request);
+```
+
+The larger the feedback value, the more Cynthia will learn to associate that product with that search, and thus
+self-improve through organic participation.
 
 ## License
 
