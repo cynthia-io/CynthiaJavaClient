@@ -295,9 +295,12 @@ This query will return the following 10 products from [Lacoste](https://www.laco
 }
 ```
 
-For NLU Search, the Cynthia `score` property associated with each result represents a fraction of contribution
+For NLU Search, the Cynthia `score` property associated with each search result represents the fraction of contribution
 of the model's attention on this result as it pertaining to relevancy. Imagine the results are a pie chart 
-where each product gets a slice of the pie. The slice of the slice represents relevency, and over all products, sum to `1.0`.
+where each product gets a slice of the pie. The slice of the slice represents relevancy, and over all products, 
+the attention sums to `1.0`. Scores may be either 32-bit or 64-bit floating point numbers, depending on 
+the model. Cynthia prefers computations using 32-bit floating point numbers while performing in-memory computations
+and in neural network parameters.
 
 ## License
 
