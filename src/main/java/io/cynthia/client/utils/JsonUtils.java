@@ -8,13 +8,10 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.SneakyThrows;
-import lombok.experimental.FieldDefaults;
 import lombok.experimental.UtilityClass;
 
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @UtilityClass
 public class JsonUtils {
     private static final ObjectMapper objectMapper = new ObjectMapper();
