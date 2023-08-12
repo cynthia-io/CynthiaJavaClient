@@ -5,7 +5,7 @@
                              http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.cynthia</groupId>
-    <artifactId>java-client</artifactId>
+    <artifactId>cynthia-java-client</artifactId>
     <version>1.0.0</version>
     <properties>
         <httpclient.version>5.2.1</httpclient.version>
@@ -73,7 +73,7 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>Cynthia-JavaClient-${project.version}</finalName>
+        <finalName>CynthiaJavaClient-${project.version}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
