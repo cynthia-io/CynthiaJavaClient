@@ -2,8 +2,8 @@ package io.cynthia.client;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.cynthia.client.feedback.CynthiaSearchFeedbackRequest;
-import io.cynthia.client.search.CynthiaNLUSearchRequest;
-import io.cynthia.client.search.CynthiaNLUSearchResponse;
+import io.cynthia.client.search.CynthiaSearchRequest;
+import io.cynthia.client.search.CynthiaSearchResponse;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
@@ -40,9 +40,9 @@ public class CynthiaClient {
     }
 
     @SneakyThrows
-    public CynthiaNLUSearchResponse search(@NonNull final String modelName,
-                                           @NonNull final String modelVersion,
-                                           @NonNull final CynthiaNLUSearchRequest request) {
+    public CynthiaSearchResponse search(@NonNull final String modelName,
+                                        @NonNull final String modelVersion,
+                                        @NonNull final CynthiaSearchRequest request) {
         final String apiUrl = String.format("%s/%s/%s/%s", baseUrl(), SEARCH, modelName, modelVersion);
         final String response = Request.post(apiUrl)
                 .addHeader(CYNTHIA_API_KEY, apiKey())

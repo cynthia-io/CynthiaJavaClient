@@ -10,10 +10,10 @@ import lombok.experimental.Accessors;
 @Builder
 @EqualsAndHashCode
 @Value
-public class CynthiaNLUSearchQuery {
+public class CynthiaSearchQuery {
     String query;
 
-    public static CynthiaNLUSearchQuery of(@NonNull final String query) {
-        return CynthiaNLUSearchQuery.builder().query(query).build();
+    public static CynthiaSearchQuery of(@NonNull final String query) {
+        return CynthiaSearchQuery.builder().query(query).build();
     }
 }

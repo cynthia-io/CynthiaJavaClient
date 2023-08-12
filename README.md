@@ -38,10 +38,10 @@ we search in the Lacoste product catalog for a `warm men's jacket` using a model
 package io.cynthia.client.example;
 
 import io.cynthia.client.CynthiaClient;
-import io.cynthia.client.search.CynthiaNLUSearchOptions;
-import io.cynthia.client.search.CynthiaNLUSearchQuery;
-import io.cynthia.client.search.CynthiaNLUSearchRequest;
-import io.cynthia.client.search.CynthiaNLUSearchResponse;
+import io.cynthia.client.search.CynthiaSearchOptions;
+import io.cynthia.client.search.CynthiaSearchQuery;
+import io.cynthia.client.search.CynthiaSearchRequest;
+import io.cynthia.client.search.CynthiaSearchResponse;
 import io.cynthia.client.utils.JsonUtils;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
@@ -57,12 +57,12 @@ public class Main {
         final boolean autoLimit = true;
         final int top = 10;
         final CynthiaClient client = CynthiaClient.of(apiKey);
-        final CynthiaNLUSearchResponse response = client.search(
+        final CynthiaSearchResponse response = client.search(
                 "Lacoste",
                 "crafty-crocodile-1.1",
-                CynthiaNLUSearchRequest.of(
-                        List.of(CynthiaNLUSearchQuery.of("warm men's jacket")),
-                        CynthiaNLUSearchOptions.of(autoLimit, top)));
+                CynthiaSearchRequest.of(
+                        List.of(CynthiaSearchQuery.of("warm men's jacket")),
+                        CynthiaSearchOptions.of(autoLimit, top)));
         log.info(JsonUtils.toJson(response));
     }
 }
