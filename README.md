@@ -42,11 +42,12 @@ import io.cynthia.client.search.CynthiaSearchOptions;
 import io.cynthia.client.search.CynthiaSearchQuery;
 import io.cynthia.client.search.CynthiaSearchRequest;
 import io.cynthia.client.search.CynthiaSearchResponse;
-import io.cynthia.client.utils.JsonUtils;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+
+import static io.cynthia.client.utils.JsonUtils.toJson;
 
 @Slf4j
 @UtilityClass
@@ -63,7 +64,7 @@ public class Main {
                 CynthiaSearchRequest.of(
                         List.of(CynthiaSearchQuery.of("warm men's jacket")),
                         CynthiaSearchOptions.of(autoLimit, top)));
-        log.info(JsonUtils.toJson(response));
+        log.info(toJson(response));
     }
 }
 ```
@@ -205,7 +206,7 @@ import java.util.List;
 @Slf4j
 @UtilityClass
 public class Main {
-    
+
     public static void main(final String[] args) {
         final String correlationId = "0ca39d69-72f0-420e-9fc8-a6f335d8ee68";
         final String resultId = "d14f2b7a-18b1-4573-970f-541c23a91d9f";
@@ -215,8 +216,10 @@ public class Main {
         final CynthiaSearchFeedbackRequest request = CynthiaSearchFeedbackRequest.of(List.of(requestItem));
         final CynthiaClient client = CynthiaClient.of("my-secret-api-key");
         final boolean submitted = client.feedback(request);
+        log.info("Submitted: {}", submitted);
     }
 }
+
 ```
 
 The larger the feedback value, the more Cynthia will learn to associate that product with that search, and thus
@@ -230,11 +233,8 @@ This project is licensed under the [Apache 2.0 License](https://www.apache.org/l
 
 We welcome contributions from the community. Please read our Contributing Guidelines to learn more about how you can get involved.
 
-
 ## About Us
 
 Cynthia.io Inc. is a C-Corp in the State of Delaware. The name Cynthia is an anthropomorphized contraction 
 of our trademark, the `Synthetic Intelligent Agent™`. Please [visit our website](https://cynthia.io) to 
 learn more about us and what we do.
-
-

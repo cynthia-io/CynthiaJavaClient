@@ -9,7 +9,6 @@ import lombok.experimental.Accessors;
 
 import java.util.Map;
 
-import static io.cynthia.client.utils.JsonUtils.toJson;
 import static io.cynthia.client.utils.JsonUtils.toObject;
 
 @Accessors(fluent = true)
