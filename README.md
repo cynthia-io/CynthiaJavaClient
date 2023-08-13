@@ -7,8 +7,8 @@ Cynthia Java Client is a lightweight and easy-to-use Java API that simplifies th
 To get started with the Cynthia Java Client, clone this repository and install the artifact:
 
 ```bash
-git clone https://github.com/cynthia-io/JavaClient.git
-cd JavaClient
+git clone https://github.com/cynthia-io/CynthiaJavaClient.git
+cd CynthiaJavaClient
 mvn clean install
 ```
 
@@ -17,7 +17,7 @@ Now, add the following Maven dependency to your project's `pom.xml` file:
 ```xml
 <dependency>
     <groupId>io.cynthia</groupId>
-    <artifactId>java-client</artifactId>
+    <artifactId>cynthia-java-client</artifactId>
     <version>1.0.0</version>
 </dependency>
 ```

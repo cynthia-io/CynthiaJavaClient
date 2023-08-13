@@ -3,7 +3,6 @@ package io.cynthia.client;
 import com.fasterxml.jackson.core.type.TypeReference;
 import io.cynthia.client.feedback.CynthiaSearchFeedbackRequest;
 import io.cynthia.client.http.CynthiaHttpClient;
-import io.cynthia.client.http.CynthiaHttpDriver;
 import io.cynthia.client.http.CynthiaHttpResponse;
 import io.cynthia.client.search.CynthiaSearchRequest;
 import io.cynthia.client.search.CynthiaSearchResponse;
@@ -13,7 +12,6 @@ import lombok.NonNull;
 import lombok.SneakyThrows;
 import lombok.Value;
 import lombok.experimental.Accessors;
-import org.apache.hc.client5.http.fluent.Response;
 import org.apache.hc.core5.http.HttpStatus;
 
 import java.util.Map;
@@ -55,7 +53,8 @@ public class CynthiaClient {
                                         @NonNull final String modelVersion,
                                         @NonNull final CynthiaSearchRequest request) {
         final String apiUrl = String.format("%s/%s/%s/%s", baseUrl(), SEARCH, modelName, modelVersion);
-        return httpClient().makePostRequest(apiUrl, Map.of(CYNTHIA_API_KEY, apiKey()), toJson(request), new TypeReference<>() {});
+        return httpClient().makePostRequest(apiUrl, Map.of(CYNTHIA_API_KEY, apiKey()), toJson(request), new TypeReference<>() {
+        });
     }
 
     @SneakyThrows
