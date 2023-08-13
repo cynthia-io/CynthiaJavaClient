@@ -13,11 +13,11 @@ import java.util.List;
 @EqualsAndHashCode
 @Value
 public class CynthiaSearchResponse {
+    String correlationId;
     List<List<CynthiaSearchResponseItem>> data;
-    CynthiaSearchOptions options;
 
-    public static CynthiaSearchResponse of(@NonNull final List<List<CynthiaSearchResponseItem>> data,
-                                           @NonNull final CynthiaSearchOptions options) {
-        return CynthiaSearchResponse.builder().data(data).options(options).build();
+    public static CynthiaSearchResponse of(@NonNull final String correlationId,
+                                           @NonNull final List<List<CynthiaSearchResponseItem>> data) {
+        return CynthiaSearchResponse.builder().correlationId(correlationId).data(data).build();
     }
 }
