@@ -52,7 +52,7 @@ import java.util.List;
 @UtilityClass
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         final String apiKey = "978ce5f9-5afa-41f4-8653-b1fb74fc7918";
         final boolean autoLimit = true;
         final int top = 10;
@@ -192,13 +192,31 @@ and let's further imagine that this click is worth `$1.75` to Lacoste. Then the 
 Cynthia with the following request:
 
 ```java
-final String correlationId = "0ca39d69-72f0-420e-9fc8-a6f335d8ee68";
-final String resultId = "d14f2b7a-18b1-4573-970f-541c23a91d9f";
-final String type = "Click";
-final float value = 1.75f;
-final CynthiaSearchFeedbackRequestItem requestItem = CynthiaSearchFeedbackRequestItem.of(correlationId, resultId, type, value);
-final CynthiaSearchFeedbackRequest request = CynthiaSearchFeedbackRequest.of(List.of(requestItem));
-final boolean submitted = client.feedback(request);
+package io.cynthia.client.example;
+
+import io.cynthia.client.CynthiaClient;
+import io.cynthia.client.feedback.CynthiaSearchFeedbackRequest;
+import io.cynthia.client.feedback.CynthiaSearchFeedbackRequestItem;
+import lombok.experimental.UtilityClass;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
+
+@Slf4j
+@UtilityClass
+public class Main {
+    
+    public static void main(final String[] args) {
+        final String correlationId = "0ca39d69-72f0-420e-9fc8-a6f335d8ee68";
+        final String resultId = "d14f2b7a-18b1-4573-970f-541c23a91d9f";
+        final String type = "Click";
+        final float value = 1.75f;
+        final CynthiaSearchFeedbackRequestItem requestItem = CynthiaSearchFeedbackRequestItem.of(correlationId, resultId, type, value);
+        final CynthiaSearchFeedbackRequest request = CynthiaSearchFeedbackRequest.of(List.of(requestItem));
+        final CynthiaClient client = CynthiaClient.of("my-secret-api-key");
+        final boolean submitted = client.feedback(request);
+    }
+}
 ```
 
 The larger the feedback value, the more Cynthia will learn to associate that product with that search, and thus
