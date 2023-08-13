@@ -36,5 +36,4 @@ public class CynthiaClientTest extends CynthiaTestHarness {
         final boolean submitted = client().feedback(feedbackRequest);
         assertTrue(submitted);
     }
-
 }
