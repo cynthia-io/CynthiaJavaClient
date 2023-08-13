@@ -27,7 +27,8 @@ public class JsonUtils {
     }
 
     @SneakyThrows
-    public static <T> T clone(@NonNull final T object, @NonNull final Class<T> tClass) {
+    public static <T> T clone(@NonNull final T object,
+                              @NonNull final Class<T> tClass) {
         return toObject(toJson(object), tClass);
     }
 
@@ -37,22 +38,26 @@ public class JsonUtils {
     }
 
     @SneakyThrows
-    public static <T> T toObject(@NonNull final String json, @NonNull final Class<T> tClass) {
+    public static <T> T toObject(@NonNull final String json,
+                                 @NonNull final Class<T> tClass) {
         return objectMapper.readValue(json, tClass);
     }
 
     @SneakyThrows
-    public static <T> T toObject(@NonNull final String json, @NonNull final TypeReference<T> typeReference) {
+    public static <T> T toObject(@NonNull final String json,
+                                 @NonNull final TypeReference<T> typeReference) {
         return objectMapper.readValue(json, typeReference);
     }
 
     @SneakyThrows
-    public static <T> T typeCast(@NonNull final Object object, @NonNull final Class<T> tClass) {
+    public static <T> T typeCast(@NonNull final Object object,
+                                 @NonNull final Class<T> tClass) {
         return toObject(toJson(object), tClass);
     }
 
     @SneakyThrows
-    public static <T> T typeCast(@NonNull final Object object, @NonNull final TypeReference<T> typeReference) {
+    public static <T> T typeCast(@NonNull final Object object,
+                                 @NonNull final TypeReference<T> typeReference) {
         return toObject(toJson(object), typeReference);
     }
 }
