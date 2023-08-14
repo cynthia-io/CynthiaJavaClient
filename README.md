@@ -188,7 +188,7 @@ Cynthia accepts feedback based on user behavior, such as clicks and conversions.
 to self-improve through usage and over time. Submitting feedback is easy and uses identifiers to tell Cynthia 
 what was engaged and how valuable that engagement was to the customer.
 
-For example, let's imaging in the above search, the user clicks on the first result, for the `Men's Quilted Color-Block Water-Repellent Jacket`
+For example, let's imagine in the above search, the user clicks on the first result, for the `Men's Quilted Color-Block Water-Repellent Jacket`
 and let's further imagine that this click is worth `$1.75` to Lacoste. Then the corresponding feedback would be sent to 
 Cynthia with the following request:
 
