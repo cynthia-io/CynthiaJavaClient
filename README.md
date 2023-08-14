@@ -177,10 +177,9 @@ This query will return the following 10 products from [Lacoste](https://www.laco
 }
 ```
 
-For NLU Search, the Cynthia `score` property associated with each search result represents the fraction of contribution
-of the model's attention on this result as it pertaining to relevancy. Imagine the results are a pie chart 
-where each product gets a slice of the pie. The size of the slice represents relevancy, and over all of the products, 
-the attention sums to `1.0`. 
+For Search, the Cynthia `score` property associated with each search result represents the fraction of attention 
+paid by the model on each result while processing the input. Imagine a pie chart where each result receives a slice of the pie. 
+The size of the slice represents the models attention, and over all of the products, the attention sums to `1.0`. 
 
 ## Example: Providing Search Feedback
 
@@ -208,13 +207,14 @@ import java.util.List;
 public class Main {
 
     public static void main(final String[] args) {
+        final String apiKey = "978ce5f9-5afa-41f4-8653-b1fb74fc7918";
         final String correlationId = "0ca39d69-72f0-420e-9fc8-a6f335d8ee68";
         final String resultId = "d14f2b7a-18b1-4573-970f-541c23a91d9f";
         final String type = "Click";
         final float value = 1.75f;
         final CynthiaSearchFeedbackRequestItem requestItem = CynthiaSearchFeedbackRequestItem.of(correlationId, resultId, type, value);
         final CynthiaSearchFeedbackRequest request = CynthiaSearchFeedbackRequest.of(List.of(requestItem));
-        final CynthiaClient client = CynthiaClient.of("my-secret-api-key");
+        final CynthiaClient client = CynthiaClient.of(apiKey);
         final boolean submitted = client.feedback(request);
         log.info("Submitted: {}", submitted);
     }
