@@ -33,7 +33,7 @@ public class CynthiaTestHarness {
     public void setupTest() {
         final CynthiaHttpDriver httpDriver = mock(CynthiaHttpDriver.class);
         final CynthiaHttpClient httpClient = CynthiaHttpClient.of(httpDriver);
-        final CynthiaClient client = CynthiaClient.builder().apiKey("").baseUrl("").httpClient(httpClient).build();
+        final CynthiaClient client = CynthiaClient.builder().apiKey("").apiUrl("").httpClient(httpClient).build();
         client(client);
         testData(CynthiaTestData.of());
     }
@@ -42,7 +42,7 @@ public class CynthiaTestHarness {
                                    @NonNull final String modelVersion,
                                    @NonNull final CynthiaSearchRequest searchRequest,
                                    @NonNull final CynthiaSearchResponse searchResponse) {
-        final String apiUrl = String.format("%s/%s/%s/%s", client().baseUrl(), SEARCH, modelName, modelVersion);
+        final String apiUrl = String.format("%s/%s/%s/%s", client().apiUrl(), SEARCH, modelName, modelVersion);
         when(client().httpClient().httpDriver().getPostResponseContent(
                 apiUrl,
                 Map.of(CYNTHIA_API_KEY, client.apiKey()),
@@ -52,7 +52,7 @@ public class CynthiaTestHarness {
 
     public void mockFeedbackResponse(@NonNull final CynthiaSearchFeedbackRequest feedbackRequest,
                                      final int status) {
-        final String apiUrl = String.format("%s/%s", client().baseUrl(), FEEDBACK);
+        final String apiUrl = String.format("%s/%s", client().apiUrl(), FEEDBACK);
         when(client().httpClient().httpDriver().getPostResponse(
                 apiUrl,
                 Map.of(CYNTHIA_API_KEY, client().apiKey()),

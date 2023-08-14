@@ -29,21 +29,21 @@ public class CynthiaClient {
     public static final String FEEDBACK = "feedback";
     CynthiaHttpClient httpClient;
     String apiKey;
-    String baseUrl;
+    String apiUrl;
 
     public static CynthiaClient of(@NonNull final String apiKey) {
         return CynthiaClient.builder()
                 .apiKey(apiKey)
-                .baseUrl(DEFAULT_API_URL)
+                .apiUrl(DEFAULT_API_URL)
                 .httpClient(CynthiaHttpClient.of())
                 .build();
     }
 
     public static CynthiaClient of(@NonNull final String apiKey,
-                                   @NonNull final String baseUrl) {
+                                   @NonNull final String apiUrl) {
         return CynthiaClient.builder()
                 .apiKey(apiKey)
-                .baseUrl(baseUrl)
+                .apiUrl(apiUrl)
                 .httpClient(CynthiaHttpClient.of())
                 .build();
     }
@@ -52,7 +52,7 @@ public class CynthiaClient {
     public CynthiaSearchResponse search(@NonNull final String modelName,
                                         @NonNull final String modelVersion,
                                         @NonNull final CynthiaSearchRequest request) {
-        final String apiUrl = String.format("%s/%s/%s/%s", baseUrl(), SEARCH, modelName, modelVersion);
+        final String apiUrl = String.format("%s/%s/%s/%s", apiUrl(), SEARCH, modelName, modelVersion);
         return httpClient().makePostRequest(apiUrl, Map.of(CYNTHIA_API_KEY, apiKey()), toJson(request), new TypeReference<>() {
         });
     }
@@ -60,7 +60,7 @@ public class CynthiaClient {
     @SneakyThrows
     public boolean feedback(@NonNull final CynthiaSearchFeedbackRequest request) {
         try {
-            final String apiUrl = String.format("%s/%s", baseUrl(), FEEDBACK);
+            final String apiUrl = String.format("%s/%s", apiUrl(), FEEDBACK);
             final CynthiaHttpResponse response = httpClient().makePostRequest(apiUrl, Map.of(CYNTHIA_API_KEY, apiKey()), request);
             final int code = response.status();
             if (code == HttpStatus.SC_OK) {
