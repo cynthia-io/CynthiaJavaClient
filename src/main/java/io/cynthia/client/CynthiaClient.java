@@ -23,7 +23,7 @@ import static io.cynthia.client.utils.JsonUtils.toJson;
 @EqualsAndHashCode
 @Value
 public class CynthiaClient {
-    public static final String DEFAULT_BASE_URL = "https://api.cynthia.io/api/v1.0/";
+    public static final String DEFAULT_API_URL = "https://api.cynthia.io/api/v1.0/";
     public static final String CYNTHIA_API_KEY = "CYNTHIA-API-KEY";
     public static final String SEARCH = "search";
     public static final String FEEDBACK = "feedback";
@@ -34,7 +34,7 @@ public class CynthiaClient {
     public static CynthiaClient of(@NonNull final String apiKey) {
         return CynthiaClient.builder()
                 .apiKey(apiKey)
-                .baseUrl(DEFAULT_BASE_URL)
+                .baseUrl(DEFAULT_API_URL)
                 .httpClient(CynthiaHttpClient.of())
                 .build();
     }
