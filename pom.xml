@@ -13,6 +13,7 @@
         <java.version>17</java.version>
         <junit.version>5.9.2</junit.version>
         <lombok.version>1.18.26</lombok.version>
+        <maven.checkstyle.version>3.3.0</maven.checkstyle.version>
         <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
         <maven.resources.plugin.version>3.2.0</maven.resources.plugin.version>
         <maven.surefire.version>2.22.2</maven.surefire.version>
@@ -23,6 +24,7 @@
         <mockito.version>5.3.1</mockito.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <puppycrawl.version>10.12.0</puppycrawl.version>
         <slf4j.version>2.0.5</slf4j.version>
     </properties>
     <dependencies>
@@ -103,6 +105,36 @@
                         <version>${maven.surefire.provider.version}</version>
                     </dependency>
                 </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${maven.checkstyle.version}</version>
+                <configuration>
+                    <configLocation>checkstyle.xml</configLocation>
+                    <consoleOutput>true</consoleOutput>
+                    <failsOnError>true</failsOnError>
+                    <linkXRef>false</linkXRef>
+                    <propertyExpansion>suppressionFile=${basedir}/checkstyle.xml</propertyExpansion>
+                    <sourceDirectories>${basedir}/src</sourceDirectories>
+                    <violationSeverity>warning</violationSeverity>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>${puppycrawl.version}</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>validate</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
