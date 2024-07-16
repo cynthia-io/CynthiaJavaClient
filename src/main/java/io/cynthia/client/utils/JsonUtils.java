@@ -8,28 +8,25 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.SneakyThrows;
+import lombok.experimental.FieldDefaults;
 import lombok.experimental.UtilityClass;
 
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @UtilityClass
 public class JsonUtils {
-    private static final ObjectMapper objectMapper = new ObjectMapper();
+    static ObjectMapper objectMapper = new ObjectMapper();
 
     static {
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         objectMapper.findAndRegisterModules();
+        objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
         objectMapper.registerModule(new JavaTimeModule());
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
-    }
-
-    @SneakyThrows
-    public static <T> T clone(@NonNull final T object,
-                              @NonNull final Class<T> tClass) {
-        return toObject(toJson(object), tClass);
     }
 
     @SneakyThrows
@@ -38,26 +35,12 @@ public class JsonUtils {
     }
 
     @SneakyThrows
-    public static <T> T toObject(@NonNull final String json,
-                                 @NonNull final Class<T> tClass) {
+    public static <T> T toObject(@NonNull final String json, @NonNull final Class<T> tClass) {
         return objectMapper.readValue(json, tClass);
     }
 
     @SneakyThrows
-    public static <T> T toObject(@NonNull final String json,
-                                 @NonNull final TypeReference<T> typeReference) {
+    public static <T> T toObject(@NonNull final String json, @NonNull final TypeReference<T> typeReference) {
         return objectMapper.readValue(json, typeReference);
-    }
-
-    @SneakyThrows
-    public static <T> T typeCast(@NonNull final Object object,
-                                 @NonNull final Class<T> tClass) {
-        return toObject(toJson(object), tClass);
-    }
-
-    @SneakyThrows
-    public static <T> T typeCast(@NonNull final Object object,
-                                 @NonNull final TypeReference<T> typeReference) {
-        return toObject(toJson(object), typeReference);
     }
 }

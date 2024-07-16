@@ -1,74 +1,58 @@
 package io.cynthia.client;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import io.cynthia.client.feedback.CynthiaSearchFeedbackRequest;
-import io.cynthia.client.http.CynthiaHttpClient;
-import io.cynthia.client.http.CynthiaHttpResponse;
-import io.cynthia.client.search.CynthiaSearchRequest;
-import io.cynthia.client.search.CynthiaSearchResponse;
+import io.cynthia.client.domain.SearchRequest;
+import io.cynthia.client.domain.SearchResponse;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.SneakyThrows;
 import lombok.Value;
 import lombok.experimental.Accessors;
-import org.apache.hc.core5.http.HttpStatus;
+import lombok.extern.slf4j.Slf4j;
 
-import java.util.Map;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.time.Duration;
 
 import static io.cynthia.client.utils.JsonUtils.toJson;
+import static io.cynthia.client.utils.JsonUtils.toObject;
 
-@Accessors(fluent = true, chain = true)
+@Accessors(fluent = true)
 @Builder
-@EqualsAndHashCode
+@Slf4j
 @Value
 public class CynthiaClient {
-    public static final String DEFAULT_API_URL = "https://api.cynthia.io/api/v1.0/";
-    public static final String CYNTHIA_API_KEY = "CYNTHIA-API-KEY";
-    public static final String SEARCH = "search";
-    public static final String FEEDBACK = "feedback";
-    CynthiaHttpClient httpClient;
-    String apiKey;
-    String apiUrl;
-
-    public static CynthiaClient of(@NonNull final String apiKey) {
-        return CynthiaClient.builder()
-                .apiKey(apiKey)
-                .apiUrl(DEFAULT_API_URL)
-                .httpClient(CynthiaHttpClient.of())
-                .build();
-    }
-
-    public static CynthiaClient of(@NonNull final String apiKey,
-                                   @NonNull final String apiUrl) {
-        return CynthiaClient.builder()
-                .apiKey(apiKey)
-                .apiUrl(apiUrl)
-                .httpClient(CynthiaHttpClient.of())
-                .build();
-    }
+    String cynthiaHost;
+    long timeout;
 
     @SneakyThrows
-    public CynthiaSearchResponse search(@NonNull final String modelName,
-                                        @NonNull final String modelVersion,
-                                        @NonNull final CynthiaSearchRequest request) {
-        final String apiUrl = String.format("%s/%s/%s/%s", apiUrl(), SEARCH, modelName, modelVersion);
-        return httpClient().makePostRequest(apiUrl, Map.of(CYNTHIA_API_KEY, apiKey()), toJson(request), new TypeReference<>() {
-        });
-    }
+    public SearchResponse getSearchResults(@NonNull final String apiKey,
+                                           @NonNull final String apiVersion,
+                                           @NonNull final String modelName,
+                                           @NonNull final String modelVersion,
+                                           @NonNull final SearchRequest searchRequest) {
+        final String apiURL = String.format("%s/api/%s/search/%s/%s", cynthiaHost(), apiVersion, modelName, modelVersion);
 
-    @SneakyThrows
-    public boolean feedback(@NonNull final CynthiaSearchFeedbackRequest request) {
-        try {
-            final String apiUrl = String.format("%s/%s", apiUrl(), FEEDBACK);
-            final CynthiaHttpResponse response = httpClient().makePostRequest(apiUrl, Map.of(CYNTHIA_API_KEY, apiKey()), request);
-            final int code = response.status();
-            if (code == HttpStatus.SC_OK) {
-                return true;
-            }
-        } catch (final Throwable t) {
-            return false;
+        final String requestBody = toJson(searchRequest);
+
+        final HttpClient httpClient = HttpClient.newHttpClient();
+
+        final HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(apiURL))
+                .timeout(Duration.ofMillis(timeout()))
+                .header("cynthia-api-key", apiKey)
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                .build();
+
+        final HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+        if (response.statusCode() != 200) {
+            log.error("Error response from server: {} {}", response.statusCode(), response.body());
+            throw new RuntimeException("Failed to get search results: HTTP " + response.statusCode());
         }
-        return false;
+
+        return toObject(response.body(), SearchResponse.class);
     }
 }
