@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.cynthia.client</groupId>
     <artifactId>JavaClient</artifactId>
-    <version>1.0</version>
+    <version>1.0.0</version>
     <properties>
         <httpclient.version>5.2.1</httpclient.version>
         <jackson.version>2.15.1</jackson.version>
@@ -101,6 +101,36 @@
                         <version>${maven.surefire.provider.version}</version>
                     </dependency>
                 </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${maven.checkstyle.version}</version>
+                <configuration>
+                    <configLocation>checkstyle.xml</configLocation>
+                    <consoleOutput>true</consoleOutput>
+                    <failsOnError>true</failsOnError>
+                    <linkXRef>false</linkXRef>
+                    <propertyExpansion>suppressionFile=${basedir}/checkstyle.xml</propertyExpansion>
+                    <sourceDirectories>${basedir}/src</sourceDirectories>
+                    <violationSeverity>warning</violationSeverity>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>${puppycrawl.version}</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>validate</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
